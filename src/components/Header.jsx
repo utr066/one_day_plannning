@@ -69,6 +69,7 @@ class Header extends Component {
 
   render() {
     const { classes } = this.props;
+    let input;
     return(
       <div>
         <AppBar position="static">
@@ -88,10 +89,18 @@ class Header extends Component {
               >
                 <div style={this.getModalStyle()} className={classes.paper}>
                   <Typography variant="title" id="modal-title">
-                    Text in a modal
+                    AddTodo
                   </Typography>
                   <Typography variant="subheading" id="simple-modal-description">
-                    Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                    <input ref={(node) => {
+                      input = node
+                    }} />
+                    <button onClick={() => {
+                      this.props.onTodoSubmit(input.value)
+                      input.value = ''
+                    }}>
+                      Add Todo
+                    </button>
                   </Typography>
                 </div>
               </Modal>
