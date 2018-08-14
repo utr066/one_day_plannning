@@ -19,7 +19,7 @@ console.log(store.getState())
 
 ReactDOM.render(
   <Provider store={createStore(reducer)}>
-    <App store={createStore(reducer)} />
+    <App />
   </Provider>,
   document.querySelector('.container')
 );

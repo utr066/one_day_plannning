@@ -8,7 +8,7 @@ class App extends Component {
         return (
           <div>
             <Header />
-            <CheckboxList store={this.props.store}/>
+            <CheckboxList />
           </div>
         );
     }

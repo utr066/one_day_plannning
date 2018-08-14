@@ -9,7 +9,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import CommentIcon from "@material-ui/icons/Comment";
 import Grid from '@material-ui/core/Grid';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { addCheck } from '../actions/Check';
 
 const styles = theme => ({
@@ -24,23 +24,10 @@ class CheckboxList extends React.Component {
 
   constructor(props){
     super(props);
-    this.state = {
-      checked: []
-    };
-  }
-
-  componentDidMount() {
-    this.unsubscribe = this.props.store.subscribe(() => {
-      this.forceUpdate();
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
   }
 
   handleToggle(value){
-    const checked = this.props.store.getState().todos[this.props.store.getState().todos.length - 1].ids;
+    const checked = this.props.todos[this.props.todos.length - 1].ids;
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
     console.log(checked);
@@ -52,18 +39,15 @@ class CheckboxList extends React.Component {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-    console.log( this.props.store.getState());
-    this.props.store.dispatch(addCheck(newChecked));
-    // this.setState({
-    //   checked: newChecked
-    // });
+
+    this.props.onCheckSubmit(newChecked);
   };
 
   render() {
     // this.props.onTodoSubmit('H');
     // this.props.store.dispatch({ type: 'ADD_TODO',  todo: "hoge"});
     // this.props.store.dispatch({ type: 'ADD_CHECK',  ids: [1,2]})
-    console.log(this.props.store.getState().todos[1].ids);
+    // console.log(this.props.store.getState().todos[1].ids);
     return (
       <Grid container spacing={24} direction="column">
         <Grid container item spacing={0} justify="center" >
@@ -78,7 +62,7 @@ class CheckboxList extends React.Component {
                   onClick={() => this.handleToggle(i)}
                 >
                   <Checkbox
-                    checked={this.props.store.getState().todos[this.props.store.getState().todos.length - 1].ids.indexOf(i) !== -1}
+                    checked={this.props.todos[this.props.todos.length - 1].ids.indexOf(i) !== -1}
                     tabIndex={-1}
                     disableRipple
                   />
@@ -97,14 +81,15 @@ CheckboxList.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-// const mapStateToProps = state => ({
-//   todos: state.todos,
-// });
-//
-// const mapDispatchToProps = dispatch => ({
-//   onTodoSubmit: todo => dispatch({ type: 'ADD_TODO',  todo}),
-// });
-// const ConnectedWithStyles = connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(CheckboxList));
+const mapStateToProps = state => ({
+  todos: state.todos,
+});
 
-const checkBox = withStyles(styles)(CheckboxList);
-export default checkBox;
+const mapDispatchToProps = dispatch => ({
+  onTodoSubmit: todo => dispatch({ type: 'ADD_TODO',  todo}),
+  onCheckSubmit: ids => dispatch({ type: 'ADD_CHECK', ids }),
+});
+
+const ConnectedWithStyles = connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(CheckboxList));
+
+export default ConnectedWithStyles;
