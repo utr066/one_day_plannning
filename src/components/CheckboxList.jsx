@@ -43,6 +43,12 @@ class CheckboxList extends React.Component {
     this.props.onCheckSubmit(newChecked);
   };
 
+  getTodoText(i) {
+    console.log("hoo");
+    console.log(this.props.todos.todos[0]);
+    return `${i}:00  ${this.props.todos.todos[i]}`;
+  }
+
   render() {
     // this.props.onTodoSubmit('H');
     // this.props.store.dispatch({ type: 'ADD_TODO',  todo: "hoge"});
@@ -62,11 +68,11 @@ class CheckboxList extends React.Component {
                   onClick={() => this.handleToggle(i)}
                 >
                   <Checkbox
-                    checked={this.props.todos.ids.indexOf(i) !== -1}
+                    checked={this.props.ids.indexOf(i) !== -1}
                     tabIndex={-1}
                     disableRipple
                   />
-                <ListItemText primary={`${i}:00`} />
+                <ListItemText primary={this.getTodoText(i)} />
                 </ListItem>
               ))}
             </List>
@@ -83,6 +89,7 @@ CheckboxList.propTypes = {
 
 const mapStateToProps = state => ({
   todos: state.todos,
+  ids: state.todos.ids,
 });
 
 const mapDispatchToProps = dispatch => ({
