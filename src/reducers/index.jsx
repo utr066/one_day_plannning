@@ -1,10 +1,5 @@
 import { combineReducers } from 'redux';
 
-const initialState = [
-    {todo: ""},
-    {ids: []}
-];
-
 const todo = (state, action) => {
   switch (action.type) {
     case 'ADD_TODO':
@@ -16,8 +11,8 @@ const todo = (state, action) => {
   }
 }
 
-
-const todos = (state = initialState, action) => {
+const todos = (state = {todo: '', ids: []}, action) => {
+  console.log(action);
   switch (action.type) {
     case 'ADD_TODO':
       return [
@@ -25,10 +20,9 @@ const todos = (state = initialState, action) => {
         todo(undefined, action)
       ]
     case 'ADD_CHECK':
-      return [
-        ...state,
-        { ids: action.ids},
-      ]
+      return Object.assign({}, state, {
+        ids: action.ids
+      });
     default:
       return state
   }

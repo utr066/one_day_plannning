@@ -27,7 +27,7 @@ class CheckboxList extends React.Component {
   }
 
   handleToggle(value){
-    const checked = this.props.todos[this.props.todos.length - 1].ids;
+    const checked = this.props.todos.ids;
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
     console.log(checked);
@@ -47,7 +47,7 @@ class CheckboxList extends React.Component {
     // this.props.onTodoSubmit('H');
     // this.props.store.dispatch({ type: 'ADD_TODO',  todo: "hoge"});
     // this.props.store.dispatch({ type: 'ADD_CHECK',  ids: [1,2]})
-    // console.log(this.props.store.getState().todos[1].ids);
+    console.log(this.props.todos);
     return (
       <Grid container spacing={24} direction="column">
         <Grid container item spacing={0} justify="center" >
@@ -62,7 +62,7 @@ class CheckboxList extends React.Component {
                   onClick={() => this.handleToggle(i)}
                 >
                   <Checkbox
-                    checked={this.props.todos[this.props.todos.length - 1].ids.indexOf(i) !== -1}
+                    checked={this.props.todos.ids.indexOf(i) !== -1}
                     tabIndex={-1}
                     disableRipple
                   />
