@@ -10,7 +10,6 @@ import IconButton from "@material-ui/core/IconButton";
 import CommentIcon from "@material-ui/icons/Comment";
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
-import { addCheck } from '../actions/Check';
 
 const styles = theme => ({
   root: {
@@ -30,9 +29,6 @@ class CheckboxList extends React.Component {
     const checked = this.props.todos.ids;
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
-    console.log(checked);
-    console.log(currentIndex);
-    console.log(value);
 
     if (currentIndex === -1) {
       newChecked.push(value);
@@ -50,14 +46,11 @@ class CheckboxList extends React.Component {
   }
 
   render() {
-    // this.props.onTodoSubmit('H');
-    // this.props.store.dispatch({ type: 'ADD_TODO',  todo: "hoge"});
-    // this.props.store.dispatch({ type: 'ADD_CHECK',  ids: [1,2]})
     console.log(this.props.todos);
     return (
       <Grid container spacing={24} direction="column">
-        <Grid container item spacing={0} justify="center" >
-          <Grid item xs={9}>
+        <Grid container item spacing={0} justify="center">
+          <Grid item xs={10}>
             <List>
               {[...Array(25)].map((_, i) => (
                 <ListItem

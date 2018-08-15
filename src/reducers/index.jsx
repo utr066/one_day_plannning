@@ -29,7 +29,8 @@ const initialState = {
     "",
     "",
     "",
-  ]
+  ],
+  modal: false,
 }
 const todo = (state, action) => {
   switch (action.type) {
@@ -42,7 +43,9 @@ const todo = (state, action) => {
       });
 
       return Object.assign({}, state, {
-        todos: arr
+        todos: arr,
+        ids: [],
+        modal: false,
       });
     default:
       return state
@@ -57,6 +60,14 @@ const todos = (state = initialState, action) => {
     case 'ADD_CHECK':
       return Object.assign({}, state, {
         ids: action.ids
+      });
+    case 'OPEN_MODAL':
+      return Object.assign({}, state, {
+        modal: true
+      });
+    case 'CLOSE_MODAL':
+      return Object.assign({}, state, {
+        modal: false
       });
     default:
       return state
