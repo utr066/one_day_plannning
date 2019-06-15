@@ -32,31 +32,25 @@ const initialState = {
   ],
   modal: false,
 }
-const todo = (state, action) => {
-  switch (action.type) {
-    case 'ADD_TODO':
-      const arr = state.todos.slice();
-      state.todos.map((todo, index) => {
-        if (state.ids.indexOf(index) !== -1) {
-           arr[index] = action.todo
-        }
-      });
+const addTodo = (state, action) => {
+  const arr = state.todos.slice();
+  state.todos.map((todo, index) => {
+    if (state.ids.indexOf(index) !== -1) {
+        arr[index] = action.todo
+    }
+  });
 
-      return Object.assign({}, state, {
-        todos: arr,
-        ids: [],
-        modal: false,
-      });
-    default:
-      return state
-  }
+  return Object.assign({}, state, {
+    todos: arr,
+    ids: [],
+    modal: false,
+  });
 }
 
 const todos = (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
     case 'ADD_TODO':
-      return todo(state, action);
+      return addTodo(state, action);
     case 'ADD_CHECK':
       return Object.assign({}, state, {
         ids: action.ids

@@ -3,11 +3,8 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
-import IconButton from "@material-ui/core/IconButton";
-import CommentIcon from "@material-ui/icons/Comment";
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
 
@@ -40,13 +37,10 @@ class CheckboxList extends React.Component {
   };
 
   getTodoText(i) {
-    console.log("hoo");
-    console.log(this.props.todos.todos[0]);
     return `${i}:00  ${this.props.todos.todos[i]}`;
   }
 
   render() {
-    console.log(this.props.todos);
     return (
       <Grid container spacing={24} direction="column">
         <Grid container item spacing={0} justify="center">
@@ -61,7 +55,7 @@ class CheckboxList extends React.Component {
                   onClick={() => this.handleToggle(i)}
                 >
                   <Checkbox
-                    checked={this.props.ids.indexOf(i) !== -1}
+                    checked={this.props.todos.ids.indexOf(i) !== -1}
                     tabIndex={-1}
                     disableRipple
                   />
@@ -81,12 +75,10 @@ CheckboxList.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  todos: state.todos,
-  ids: state.todos.ids,
+  todos: state.todos
 });
 
 const mapDispatchToProps = dispatch => ({
-  onTodoSubmit: todo => dispatch({ type: 'ADD_TODO',  todo}),
   onCheckSubmit: ids => dispatch({ type: 'ADD_CHECK', ids }),
 });
 
